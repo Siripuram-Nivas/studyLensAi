@@ -224,6 +224,30 @@ AI_BASE_URL=https://your-provider.example/v1
 AI_API_KEY=<your-key>
 ```
 
+### Google Gemini
+
+Gemini exposes an OpenAI-compatible endpoint, so it uses the same provider with
+`Authorization: Bearer <key>`. Both `AIza…` standard keys and `AQ.…`
+authorization keys work.
+
+```dotenv
+AI_PROVIDER=openai_compatible
+AI_MODEL=gemini-3.5-flash-lite
+AI_BASE_URL=https://generativelanguage.googleapis.com/v1beta/openai/
+AI_API_KEY=<your-gemini-key>
+```
+
+List the models your key can use with:
+
+```powershell
+curl "https://generativelanguage.googleapis.com/v1beta/openai/models" -H "Authorization: Bearer $env:AI_API_KEY"
+```
+
+Prefer a Flash-Lite model for interactive study sessions. Gemini 3.x thinking
+models (for example `gemini-3.8-flash`) can take well over a minute on short
+prompts, which exceeds the default 60s `AI_TIMEOUT_SECONDS` and the
+per-request token caps.
+
 ### Local Ollama
 
 Ollama exposes an OpenAI-compatible endpoint. Example model only; verify the

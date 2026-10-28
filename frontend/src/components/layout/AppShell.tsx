@@ -46,6 +46,13 @@ function SidebarStatus() {
     retry: false,
   });
   const presentation = statusPresentation(data);
+  const subtitle = isError
+    ? "Start the FastAPI server"
+    : isLoading
+      ? "Checking provider status"
+      : data?.status === "unconfigured"
+        ? "Configure a provider in Settings"
+        : data?.model || data?.detail || "Provider status unavailable";
 
   return (
     <div className="rounded-xl border border-white/10 bg-white/5 px-3.5 py-3">
@@ -62,7 +69,7 @@ function SidebarStatus() {
         </p>
       </div>
       <p className="mt-1 truncate text-[11px] text-slate-400">
-        {data?.model || (isError ? "Start the FastAPI server" : "Checking provider status")}
+        {subtitle}
       </p>
       <NavLink
         to="/settings"

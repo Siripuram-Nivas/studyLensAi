@@ -405,4 +405,5 @@ class DisabledProvider(AIProvider):
             model="",
             base_url="",
             detail="AI is disabled by configuration.",
+            supports_structured_output=False,
         )

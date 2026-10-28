@@ -79,7 +79,12 @@ export function SettingsPage() {
     onSuccess: (data) => {
       queryClient.setQueryData(["settings"], data);
       queryClient.invalidateQueries({ queryKey: ["ai-status"] });
-      notify("AI status refreshed with a live connectivity check.", "info");
+      notify(
+        data.ai.configured
+          ? "AI status refreshed with a live connectivity check."
+          : "AI is still not configured. Update the backend environment variables and restart the server.",
+        "info",
+      );
     },
   });
 
@@ -145,7 +150,9 @@ export function SettingsPage() {
                     Checked {formatDateTime(ai.checked_at)}
                     {ai.latency_ms !== null ? ` · ${ai.latency_ms} ms` : ""}
                     {" · "}
-                    Real connectivity check, cached briefly on the server.
+                    {ai.configured
+                      ? "Real connectivity check, cached briefly on the server."
+                      : "No network check was performed because no provider is configured."}
                   </p>
                 </div>
               </div>

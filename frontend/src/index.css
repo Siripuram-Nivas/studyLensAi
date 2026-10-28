@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-canvas font-sans text-ink-900 antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  ::selection {
+    @apply bg-iris-200 text-ink-950;
+  }
+
+  :focus-visible {
+    outline: 2px solid theme("colors.iris.500");
+    outline-offset: 2px;
+  }
+
+  button,
+  a,
+  input,
+  textarea,
+  select {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply tracking-tight;
+  }
+}
+
+@layer components {
+  .surface {
+    @apply rounded-xl2 border border-ink-200/80 bg-white shadow-card;
+  }
+
+  .eyebrow {
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em] text-iris-700;
+  }
+
+  .study-copy {
+    @apply text-[15px] leading-7 text-ink-700;
+  }
+
+  .scroll-area {
+    scrollbar-width: thin;
+    scrollbar-color: theme("colors.ink.300") transparent;
+  }
+
+  .scroll-area::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  .scroll-area::-webkit-scrollbar-thumb {
+    @apply rounded-full bg-ink-200;
+  }
+
+  .focus-ring {
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-iris-500;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-delay: 0ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

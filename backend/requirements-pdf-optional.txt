@@ -1,0 +1,4 @@
+# Optional: PyMuPDF is faster and handles some complex PDF layouts better.
+# If installed, StudyLens automatically uses it; otherwise it falls back to pypdf.
+# Install with: pip install -r requirements-pdf-optional.txt
+PyMuPDF==1.24.10

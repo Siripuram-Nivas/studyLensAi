@@ -1,0 +1,4 @@
+# Optional OCR support for PNG/JPEG study material.
+# Requires the Tesseract OCR binary on PATH in addition to this Python package.
+# See README.md -> "Image and OCR support".
+pytesseract>=0.3.13,<0.4

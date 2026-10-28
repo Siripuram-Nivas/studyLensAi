@@ -38,6 +38,11 @@ _JSON_INSTRUCTION = (
 )
 
 
+def _normalize_model_id(model_id: str) -> str:
+    """Providers disagree on the `models/` prefix; Gemini includes it in listings."""
+    return model_id.strip().removeprefix("models/").lower()
+
+
 def _extract_json(raw: str) -> Any:
     text = raw.strip()
     if text.startswith("```"):
@@ -107,7 +112,7 @@ class OpenAICompatibleProvider(AIProvider):
         json_mode: bool,
     ) -> str:
         payload: dict[str, Any] = {
-            "model": self.model,
+            "model": _normalize_model_id(self.model),
             "messages": messages,
             "temperature": self.temperature if temperature is None else temperature,
             "max_tokens": max_tokens or self.max_output_tokens,
@@ -349,11 +354,11 @@ class OpenAICompatibleProvider(AIProvider):
             items = body.get("data") if isinstance(body, dict) else None
             if isinstance(items, list):
                 ids = {
-                    str(item.get("id", ""))
+                    _normalize_model_id(str(item.get("id", "")))
                     for item in items
                     if isinstance(item, dict) and item.get("id")
                 }
-                model_available = self.model in ids
+                model_available = _normalize_model_id(self.model) in ids
                 if model_available:
                     detail = "Provider reachable and the configured model is available."
                 else:
